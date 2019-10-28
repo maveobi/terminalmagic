@@ -1,9 +1,12 @@
 import sys
 
-up = lambda n: f'\033[{n}A'
-down = lambda n: f'\033[{n}B'
-right = lambda n: f'\033[{n}C'
-left = lambda n: f'\033[{n}D'
+# Tmux misinterprets 0-count movements as 1-count movements
+# (for insance, 0A as 1A), so we return an empty string for no-ops.
+up =         lambda n: n and f'\033[{n}A' or ''
+down =       lambda n: n and f'\033[{n}B' or ''
+right =      lambda n: n and f'\033[{n}C' or ''
+left =       lambda n: n and f'\033[{n}D' or ''
+
 horizontal = lambda x: f'\033[{x}G'
 
 erase_line = lambda n: f'\033[{n}K'
